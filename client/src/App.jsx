@@ -2,8 +2,21 @@ import './App.css'
 
 function App() {
   async function openPack() {
-    let pack = ['card', 'card', 'card', 'card', 'card']
-    console.log(pack)
+    try {
+      await fetch('http://localhost:5000/pack')
+        .then((res) => {
+          if (res.status >= 400) {
+            throw res.status
+          }
+          console.log('Got pack from server.')
+          return res.json()
+        })
+        .then((json) => {
+          console.log(json)
+        })
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   return (

@@ -17,6 +17,18 @@ const pool = new Pool({
   password: process.env.PGPASSWORD
 })
 
+const TEST_PACK = [
+  { number: 'one' },
+  { number: 'two' },
+  { number: 'three' },
+  { number: 'four' },
+  { number: 'five' }
+]
+
+APP.get('/pack', async (req, res) => {
+  res.send(TEST_PACK)
+})
+
 APP.listen(PORT, () => {
   console.log(`Server listening on port ${PORT}`)
 })
