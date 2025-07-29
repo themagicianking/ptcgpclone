@@ -2,9 +2,12 @@ import express from 'express'
 import cors from 'cors'
 import pkg from 'pg'
 import 'dotenv/config'
+import TCGdex from '@tcgdex/sdk'
 
 const PORT = process.env.PORT
 const APP = express()
+// const TCGdex = require('@tcgdex/sdk').default
+const tcgdex = new TCGdex('en')
 
 APP.use(cors())
 
@@ -24,6 +27,12 @@ const TEST_PACK = [
   { number: 'four' },
   { number: 'five' }
 ]
+
+APP.get('/set', async (req, res) => {
+  const set = await tcgdex.fetch('sets', 'A1a')
+  const cards = set.cards
+  res.send(cards)
+})
 
 APP.get('/pack', async (req, res) => {
   res.send(TEST_PACK)
